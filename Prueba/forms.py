@@ -1,5 +1,5 @@
 from django import forms 
-from Prueba.models import Ciudades,Tipocurso,Alumnos
+from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios
 
 
 
@@ -16,6 +16,11 @@ class TipoCursoForm(forms.ModelForm):
 class AlumnosForm(forms.ModelForm):
     class Meta:
         model=Alumnos
+        fields='__all__'
+
+class UsuarioForm(forms.ModelForm):
+    class Meta:
+        model=Usuarios
         fields='__all__'
         
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios
 from . import forms
-from .forms import CiudadesForm,TipoCursoForm,AlumnosForm
+from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
 # Create your views here.
 
 
@@ -107,3 +107,27 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Credenciales inválidas'})
     return render(request, 'login.html')
 
+#Usuario
+def Index_Usuario(request):
+    usuario=Usuarios.objects.all() 
+    data={'usuario':usuario}
+    return render(request,'Usuario.html',data)
+
+
+def View_Usuario(request,id):
+    usuario=Usuarios.objects.get(id=id)
+    data={"usuario":usuario}
+    return render(request,'view-usuario.html',data)
+
+def Update_Usuario(request,id):
+    usuario=Usuarios.objects.get(id=id)
+    form=UsuarioForm(instance=usuario)
+    if request.method=="POST":
+        form=UsuarioForm(request.POST,instance=usuario)
+        if form.is_valid():
+            form.save()
+        return Index_Usuario(request)
+    data={'form':form,'titulo':'Actualizar usuario'}
+    return render(request,'update-usuario.html',data)
+
+#sucursales

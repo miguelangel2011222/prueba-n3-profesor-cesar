@@ -27,6 +27,7 @@ from Prueba.views import Index_Alumnos,Create_Alumno,View_Alumno
 
 from Prueba.views import login_view
 
+from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
 urlpatterns = [
     #appbd
@@ -67,5 +68,10 @@ urlpatterns = [
 
 
     #matriculas
-    
+
+
+    #Usuarios
+    path('usuario/',Index_Usuario),
+    path('view-usuario/<int:id>',View_Usuario),
+    path('actualizar-usuario/<int:id>',Update_Usuario),
 ]
