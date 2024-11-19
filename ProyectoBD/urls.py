@@ -29,6 +29,8 @@ from Prueba.views import login_view
 
 from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
+from Prueba.views import SucursalIndex,sucursalView,sucursalCreate
+
 urlpatterns = [
     #appbd
     path('admin/', admin.site.urls),
@@ -65,9 +67,11 @@ urlpatterns = [
 
 
     #sucursales
+    path('sucursal/',SucursalIndex),
+    path('ingresar-sucursal/',sucursalCreate),
+    path('ver-sucursal/<int:id>',sucursalView),
 
-
-    #matriculas
+    #matriculas 
 
 
     #Usuarios

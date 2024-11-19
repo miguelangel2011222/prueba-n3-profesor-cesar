@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios
+from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales
 from . import forms
 from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
 # Create your views here.
@@ -131,3 +131,26 @@ def Update_Usuario(request,id):
     return render(request,'update-usuario.html',data)
 
 #sucursales
+def SucursalIndex(request):
+    sucursal=Sucursales.objects.all()
+    data={'sucursal':sucursal}
+    return render(request,
+                  'sucursales.html',data)
+def sucursalCreate(request):
+    sucursal=Sucursales()
+    if request.method=='POST':
+        sucursal.SUCNOMBRE=request.POST['txtsucursal']
+        sucursal.SUCCODIGO=request.POST['txtsucursalcod']
+        ciudad=Ciudades.objects.get(id=request.POST["ciudad"])
+        sucursal.CIUCODIGO=ciudad
+        sucursal.save()
+        return SucursalIndex(request)
+    else:
+        ciudades=Ciudades.objects.all()
+        data={'ciudades':ciudades}
+        return render(request,'create-sucursal.html',data)
+    
+def sucursalView(request, id):
+    sucursal = Sucursales.objects.get(id=id)
+    data = {'sucursal': sucursal}
+    return render(request, 'view-sucursal.html', data)
