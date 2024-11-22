@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales
+from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales,Matriculas
 from . import forms
 from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
 # Create your views here.
@@ -154,3 +154,38 @@ def sucursalView(request, id):
     sucursal = Sucursales.objects.get(id=id)
     data = {'sucursal': sucursal}
     return render(request, 'view-sucursal.html', data)
+
+
+#matricula
+
+def matriculaIndex(request):
+    matricula=Matriculas.objects.all()
+    data={'matricula':matricula}
+    return render(request,'Matricula.html',data)
+
+
+def matriculaCreate(request):
+    if request.method == 'POST':
+        matricula = Matriculas()
+        matricula.MATNUMERO = request.POST['txtmatricula']
+        matricula.MATFECHA = request.POST['xtmatricula1']
+        tipcurso = Tipocurso.objects.get(id=request.POST["tipcurso"])
+        matricula.TIPCURCODIGO = tipcurso
+        rut = Alumnos.objects.get(id=request.POST["rut"])
+        matricula.ALUMRUT = rut
+        sucodigo = Sucursales.objects.get(id=request.POST["sucodigo"])
+        matricula.SUCCODIGO = sucodigo
+        matricula.save()
+        return matriculaIndex(request)
+
+    else:
+        tipcursos = Tipocurso.objects.all()
+        ruts = Alumnos.objects.all()
+        sucodigos = Sucursales.objects.all()
+        data = {
+            'tipcursos': tipcursos,
+            'ruts': ruts,
+            'sucodigos': sucodigos
+        }
+        return render(request, 'create-matricula.html', data)
+

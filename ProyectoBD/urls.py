@@ -31,6 +31,8 @@ from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
 from Prueba.views import SucursalIndex,sucursalView,sucursalCreate
 
+from Prueba.views import matriculaIndex,matriculaCreate
+
 urlpatterns = [
     #appbd
     path('admin/', admin.site.urls),
@@ -70,12 +72,15 @@ urlpatterns = [
     path('sucursal/',SucursalIndex),
     path('ingresar-sucursal/',sucursalCreate),
     path('ver-sucursal/<int:id>',sucursalView),
-
-    #matriculas 
+ 
 
 
     #Usuarios
     path('usuario/',Index_Usuario),
     path('view-usuario/<int:id>',View_Usuario),
     path('actualizar-usuario/<int:id>',Update_Usuario),
+
+    #matriculas
+    path('matriculas/',matriculaIndex),
+    path('ingresar-matricula/',matriculaCreate),
 ]
