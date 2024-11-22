@@ -23,13 +23,13 @@
                                 <td>{{ ma.ALUMRUT.ALUMRUT }}</td>
                                 <td>{{ ma.SUCCODIGO.SUCCODIGO }}</td>
                                 <td>{{ ma.MATFECHA }}</td>
-                                <td><a href="../update-comuna/{{ su.id }}" class="btn btn-warning">
+                                <td><a href="../editar-matricula/{{ ma.id }}" class="btn btn-warning">
                                     <i class="bi bi-pencil"></i></a>
                                 </td>
-                                <td><a href="../delete-comuna/{{ su.id }}" class="btn btn-danger">
+                                <td><a href="../eliminar-matricula/{{ma.id }}" class="btn btn-danger">
                                     <i class="bi bi-trash"></i></a>
                                 </td>
-                                <td><a href="../ver-sucursal/{{ su.id }}" class="btn btn-success">
+                                <td><a href="../ver-matriculas/{{ ma.id }}" class="btn btn-success">
                                     <i class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
@@ -39,6 +39,6 @@
         {% else %}
               <div class="alert alert-info">No Hay matriculas a Mostrar</div>
         {% endif %}
-        <a href="../ingresar-sucursal/" class="btn btn-success">Agregar</a>
+        <a href="../ingresar-matricula/" class="btn btn-success">Agregar</a>
 </div>
 {% include 'footer.html' %}

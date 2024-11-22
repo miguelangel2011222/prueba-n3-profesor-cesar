@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales,Matriculas
 from . import forms
 from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
@@ -188,4 +188,47 @@ def matriculaCreate(request):
             'sucodigos': sucodigos
         }
         return render(request, 'create-matricula.html', data)
+
+def matriculaView(request, id):
+    matricula = Matriculas.objects.get(id=id)
+    data = {'matricula': matricula}
+    return render(request, 'view-matricula.html', data)
+
+def matriculaUpdate(request, id):
+    matricula = get_object_or_404(Matriculas, id=id)
+    if request.method == 'POST':
+        matricula.MATNUMERO = request.POST['txtmatricula']
+        matricula.MATFECHA = request.POST['xtmatricula1']
+        tipcurso = Tipocurso.objects.get(id=request.POST["tipcurso"])
+        matricula.TIPCURCODIGO = tipcurso
+        rut = Alumnos.objects.get(id=request.POST["rut"])
+        matricula.ALUMRUT = rut
+        sucodigo = Sucursales.objects.get(id=request.POST["sucodigo"])
+        matricula.SUCCODIGO = sucodigo
+        matricula.save()
+        return redirect('/matriculas/')  
+
+    else:
+        tipcursos = Tipocurso.objects.all()
+        ruts = Alumnos.objects.all()
+        sucodigos = Sucursales.objects.all()
+        data = {
+            'matricula': matricula,
+            'tipcursos': tipcursos,
+            'ruts': ruts,
+            'sucodigos': sucodigos
+        }
+        return render(request, 'create-matricula.html', data)
+    
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Matriculas
+
+def matriculaDelete(request, id):
+    matricula = get_object_or_404(Matriculas, id=id)
+    if request.method == 'POST':
+        matricula.delete()
+        return redirect('/matriculas/')
+    return render(request, 'delete-matricula.html', {'matricula': matricula})
+
 
