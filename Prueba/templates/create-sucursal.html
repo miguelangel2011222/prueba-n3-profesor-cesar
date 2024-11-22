@@ -1,7 +1,7 @@
 {%include 'header.html'%}
 <div class='container mt-5'>
-   <div class="alert alert-success display-1">Crear sucursal</div>
-    <form method="POST" action="/ingresar-sucursal/">
+    <div class="alert alert-success display-1">{% if sucursales %}Editar{% else %}Crear{% endif %} Sucursales</div>
+    <form method="POST" action="{% if sucursales %}/sucursalUpdate/{{ sucursales.id }}/{% else %}/ingresar-sucursal/{% endif %}">
          {% csrf_token %}
          <div class="row">
              <div class="col-md-6">

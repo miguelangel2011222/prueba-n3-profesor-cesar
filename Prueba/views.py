@@ -70,6 +70,25 @@ def View_tipocurso(request,id):
     data={"tipocursos":tipocursos}
     return render(request,'view-tipocurso.html',data)
 
+def actualizar_tipoCurso(request, id):
+    cursos=Tipocurso.objects.get(id=id)
+    form=TipoCursoForm(instance=cursos)
+    if request.method=="POST":
+        form=TipoCursoForm(request.POST,instance=cursos)
+        if form.is_valid():
+            form.save()
+        return Index_Tipo_Curso(request)
+    data={'form':form,'titulo':'Actualizar Tipo Curso'}
+    return render(request,'create-tipocurso.html',data)
+
+def delete_tipoCurso(request, id):
+    curso =Tipocurso.objects.get(id=id)
+    if request.method == "POST":
+        curso.delete()
+        return redirect("/tipo cursos/")
+    data = {"curso": curso}
+    return render(request, 'delete-tipoCurso.html', data)
+
 
 #Alumos
 
@@ -92,6 +111,25 @@ def View_Alumno(request,id):
     alumno=Alumnos.objects.get(id=id)
     data={"alumno":alumno}
     return render(request,'view-alumno.html',data)
+
+def actualizar_Alumno(request, id):
+    alumno=Alumnos.objects.get(id=id)
+    form=AlumnosForm(instance=alumno)
+    if request.method=="POST":
+        form=AlumnosForm(request.POST,instance=alumno)
+        if form.is_valid():
+            form.save()
+        return Index_Alumnos(request)
+    data={'form':form,'titulo':'Actualizar Datos alumnos'}
+    return render(request,'create-alumnos.html',data)
+
+def delete_Alumno(request, id):
+    alumno =Alumnos.objects.get(id=id)
+    if request.method == "POST":
+        alumno.delete()
+        return redirect("/alumnos/")
+    data = {"alumno": alumno}
+    return render(request, 'delete-alumno.html', data)
 
 
 #login
@@ -154,6 +192,28 @@ def sucursalView(request, id):
     sucursal = Sucursales.objects.get(id=id)
     data = {'sucursal': sucursal}
     return render(request, 'view-sucursal.html', data)
+
+def sucursalUpdate(request, id):
+    sucursal = get_object_or_404(Sucursales, id=id)
+    if request.method == 'POST':
+        sucursal.SUCNOMBRE=request.POST['txtsucursal']
+        sucursal.SUCCODIGO=request.POST['txtsucursalcod']
+        ciudad = Ciudades.objects.get(id=request.POST["ciudad"])
+        sucursal.CIUCODIGO = ciudad
+        sucursal.save()
+        return redirect('/sucursal/')  
+
+    else:
+        ciudades = Ciudades.objects.all()
+        data = {'sucursales':sucursal, 'ciudades': ciudades}
+        return render(request, 'create-sucursal.html', data)
+
+def sucursalDelete(request, id):
+    sucursal = get_object_or_404(Sucursales, id=id)
+    if request.method == 'POST':
+        sucursal.delete()
+        return redirect('/sucursal/')
+    return render(request, 'delete-sucursal.html', {'sucursal': sucursal})
 
 
 #matricula

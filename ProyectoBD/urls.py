@@ -21,15 +21,15 @@ from appBD.views import Index_Empleado,Create_Empleado,View_Empleado,Delete_Empl
 
 from Prueba.views import Index_Ciudades,Create_Ciudad,View_Ciudad,Delete_Ciudad,Update_Ciudad
 
-from Prueba.views import Index_Tipo_Curso,Create_tipocurso,View_tipocurso
+from Prueba.views import Index_Tipo_Curso,Create_tipocurso,View_tipocurso, actualizar_tipoCurso, delete_tipoCurso
 
-from Prueba.views import Index_Alumnos,Create_Alumno,View_Alumno
+from Prueba.views import Index_Alumnos,Create_Alumno,View_Alumno, actualizar_Alumno, delete_Alumno
 
 from Prueba.views import login_view
 
 from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
-from Prueba.views import SucursalIndex,sucursalView,sucursalCreate
+from Prueba.views import SucursalIndex,sucursalView,sucursalCreate, sucursalUpdate, sucursalDelete
 
 from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete
 
@@ -57,11 +57,15 @@ urlpatterns = [
     path('tipo cursos/',Index_Tipo_Curso),
     path('ingresar-tipos de curso/',Create_tipocurso),
     path('view-tipo curso/<int:id>',View_tipocurso),
+    path('actualizar_tipoCurso/<int:id>', actualizar_tipoCurso),
+    path('delete_tipoCurso/<int:id>', delete_tipoCurso),
 
     #Alumnos
     path('alumnos/',Index_Alumnos),
     path('ingresar-alumnos/',Create_Alumno),
     path('view-alumnos/<int:id>',View_Alumno),
+    path('actualizar_Alumno/<int:id>', actualizar_Alumno),
+    path('delete_Alumno/<int:id>', delete_Alumno),
 
 
     #login
@@ -72,6 +76,8 @@ urlpatterns = [
     path('sucursal/',SucursalIndex),
     path('ingresar-sucursal/',sucursalCreate),
     path('ver-sucursal/<int:id>',sucursalView),
+    path('sucursalUpdate/<int:id>', sucursalUpdate),
+    path('sucursalDelete/<int:id>', sucursalDelete),
  
 
 
@@ -82,7 +88,7 @@ urlpatterns = [
 
     #matriculas
     path('matriculas/',matriculaIndex),
-    path('ingresar-matricula/',matriculaCreate),
+    path('crear-matricula/',matriculaCreate),
     path('ver-matriculas/<int:id>',matriculaView),
     path('editar-matricula/<int:id>/', matriculaUpdate),
     path('eliminar-matricula/<int:id>/',matriculaDelete),
