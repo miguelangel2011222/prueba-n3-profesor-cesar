@@ -208,12 +208,15 @@ def sucursalUpdate(request, id):
         data = {'sucursales':sucursal, 'ciudades': ciudades}
         return render(request, 'create-sucursal.html', data)
 
+
 def sucursalDelete(request, id):
     sucursal = get_object_or_404(Sucursales, id=id)
     if request.method == 'POST':
         sucursal.delete()
         return redirect('/sucursal/')
     return render(request, 'delete-sucursal.html', {'sucursal': sucursal})
+
+
 
 
 #matricula

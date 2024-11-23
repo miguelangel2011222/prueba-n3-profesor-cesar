@@ -76,8 +76,8 @@ urlpatterns = [
     path('sucursal/',SucursalIndex),
     path('ingresar-sucursal/',sucursalCreate),
     path('ver-sucursal/<int:id>',sucursalView),
-    path('sucursalUpdate/<int:id>', sucursalUpdate),
-    path('sucursalDelete/<int:id>', sucursalDelete),
+    path('sucursalUpdate/<int:id>/', sucursalUpdate),
+    path('sucursalDelete/<int:id>/', sucursalDelete),
  
 
 
