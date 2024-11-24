@@ -5,9 +5,10 @@
         <tr><td>ID</td><td>{{ matricula.id }}</td></tr>
         <tr><td>numero de matricula</td><td>{{ matricula.MATNUMERO  }}</td></tr>
         <tr><td>fecha de matricula</td><td>{{ matricula.MATFECHA }}</td></tr>
-        <tr><td>codigo del tipo de curso</td><td>{{ matricula.TIPCURCODIGO.TIPCURCODIGO }}</td></tr>
-        <tr><td>rut del alumno</td><td>{{ matricula.ALUMRUT.ALUMRUT }}</td></tr>
-        <tr><td>codigo de la sucursal</td><td>{{ matricula.SUCCODIGO.SUCCODIGO }}</td></tr>
+        <tr><td>nombre del tipo de curso</td><td>{{ matricula.TIPCURCODIGO.TIPCURNOMBRE }}</td></tr>
+        <tr><td>nombre del alumno</td><td>{{ matricula.ALUMRUT.ALUMNOMBRE }}</td></tr>
+        <tr><td>nombre de la sucursal</td><td>{{ matricula.SUCCODIGO.SUCNOMBRE  }}</td></tr>
+        <tr><td>precio del tipo de curso</td><td>{{ matricula.TIPCURCODIGO.TIPCURVALOR }}</td></tr>
     </table>
     <a href="../matriculas/" class="btn btn-success">Volver</a>
 </div>

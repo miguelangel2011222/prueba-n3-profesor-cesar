@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales,Matriculas
 from . import forms
 from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
+from django.db.models import Q
 # Create your views here.
 
 
@@ -96,6 +97,23 @@ def Index_Alumnos(request):
     alumno=Alumnos.objects.all() 
     data={'alumno':alumno}
     return render(request,'Alumno.html',data)
+
+from django.db.models import Q
+
+def Index_Alumnos_filtro2(request):
+    query = Q()
+    if 'rut' in request.GET and request.GET['rut']:
+        query &= Q(ALUMRUT__icontains=request.GET['rut'])
+    if 'nombre' in request.GET and request.GET['nombre']:
+        query &= Q(ALUMNOMBRE__icontains=request.GET['nombre'])
+    if 'apellido_paterno' in request.GET and request.GET['apellido_paterno']:
+        query &= Q(ALUMAPATERNO__icontains=request.GET['apellido_paterno'])
+    if 'apellido_materno' in request.GET and request.GET['apellido_materno']:
+        query &= Q(ALUMAMATERNO__icontains=request.GET['apellido_materno'])
+
+    alumno = Alumnos.objects.filter(query) 
+    data = {'alumno': alumno}
+    return render(request, 'AlumnoFiltro.html', data)
 
 def Create_Alumno(request):
     form=AlumnosForm()
@@ -222,9 +240,30 @@ def sucursalDelete(request, id):
 #matricula
 
 def matriculaIndex(request):
-    matricula=Matriculas.objects.all()
-    data={'matricula':matricula}
-    return render(request,'Matricula.html',data)
+    matriculas = Matriculas.objects.all()
+    total_valor = sum(matricula.TIPCURCODIGO.TIPCURVALOR for matricula in matriculas)
+    data = {
+        'matriculas': matriculas,
+        'total_valor': total_valor
+    }
+    return render(request, 'Matricula.html', data)
+
+
+def matriculaIndexFiltro(request):
+    sucursal_nombre = request.GET.get('sucursal', '')
+    if sucursal_nombre:
+        matriculas = Matriculas.objects.filter(SUCCODIGO__SUCNOMBRE__icontains=sucursal_nombre)
+    else:
+        matriculas = Matriculas.objects.all()
+    total_valor = sum(matricula.TIPCURCODIGO.TIPCURVALOR for matricula in matriculas)
+    data = {
+        'matriculas': matriculas,
+        'total_valor': total_valor,
+        'sucursal_nombre': sucursal_nombre,
+    }
+    return render(request, 'MatriculaFiltro.html', data)
+
+
 
 
 def matriculaCreate(request):

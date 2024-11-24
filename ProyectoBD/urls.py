@@ -23,7 +23,7 @@ from Prueba.views import Index_Ciudades,Create_Ciudad,View_Ciudad,Delete_Ciudad,
 
 from Prueba.views import Index_Tipo_Curso,Create_tipocurso,View_tipocurso, actualizar_tipoCurso, delete_tipoCurso
 
-from Prueba.views import Index_Alumnos,Create_Alumno,View_Alumno, actualizar_Alumno, delete_Alumno
+from Prueba.views import Index_Alumnos,Create_Alumno,View_Alumno, actualizar_Alumno, delete_Alumno,Index_Alumnos_filtro2
 
 from Prueba.views import login_view
 
@@ -31,7 +31,7 @@ from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
 from Prueba.views import SucursalIndex,sucursalView,sucursalCreate, sucursalUpdate, sucursalDelete
 
-from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete
+from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete,matriculaIndexFiltro
 
 urlpatterns = [
     #appbd
@@ -62,6 +62,7 @@ urlpatterns = [
 
     #Alumnos
     path('alumnos/',Index_Alumnos),
+    path('alumnos filtro 2/',Index_Alumnos_filtro2),
     path('ingresar-alumnos/',Create_Alumno),
     path('view-alumnos/<int:id>',View_Alumno),
     path('actualizar_Alumno/<int:id>', actualizar_Alumno),
@@ -88,6 +89,7 @@ urlpatterns = [
 
     #matriculas
     path('matriculas/',matriculaIndex),
+    path('matricula filtro1/',matriculaIndexFiltro),
     path('crear-matricula/',matriculaCreate),
     path('ver-matriculas/<int:id>',matriculaView),
     path('editar-matricula/<int:id>/', matriculaUpdate),
