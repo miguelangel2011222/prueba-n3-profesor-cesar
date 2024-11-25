@@ -1,6 +1,14 @@
 {% include 'header.html' %}
 <div class='container mt-5'>
    <div class="alert alert-success display-1">SUCURSALES</div>
+
+   <form method="GET" action="">
+       <div class="input-group mb-3">
+           <input type="text" name="search" class="form-control" placeholder="Buscar sucursal..." aria-label="Buscar sucursal" aria-describedby="button-addon2">
+           <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+       </div>
+   </form>
+   
    {% if sucursal %}
         <table class="table table-striped">
               <thead>
@@ -40,3 +48,4 @@
         <a href="../ingresar-sucursal/" class="btn btn-success">Agregar</a>
 </div>
 {% include 'footer.html' %}
+

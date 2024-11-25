@@ -9,10 +9,16 @@ from django.db.models import Q
 
 #CIUDADES
 
+
 def Index_Ciudades(request):
-    ciudad=Ciudades.objects.all() 
-    data={'ciudad':ciudad}
-    return render(request,'ciudad.html',data)
+    query = request.GET.get('search')
+    if query:
+        ciudad = Ciudades.objects.filter(CIUNOMBRE__icontains=query)
+    else:
+        ciudad = Ciudades.objects.all()
+    data = {'ciudad': ciudad}
+    return render(request, 'ciudad.html', data)
+
 
 def Create_Ciudad(request):
     form=CiudadesForm()
@@ -51,10 +57,16 @@ def Update_Ciudad(request,id):
 
 #Tipo de Curso
 
+
 def Index_Tipo_Curso(request):
-    tipocursos=Tipocurso.objects.all() 
-    data={'tipocursos':tipocursos}
-    return render(request,'tipocurso.html',data)
+    query = request.GET.get('search')
+    if query:
+        tipocursos = Tipocurso.objects.filter(TIPCURNOMBRE__icontains=query)
+    else:
+        tipocursos = Tipocurso.objects.all()
+    data = {'tipocursos': tipocursos}
+    return render(request, 'tipocurso.html', data)
+
 
 def Create_tipocurso(request):
     form=TipoCursoForm()
@@ -164,10 +176,16 @@ def login_view(request):
     return render(request, 'login.html')
 
 #Usuario
+
 def Index_Usuario(request):
-    usuario=Usuarios.objects.all() 
-    data={'usuario':usuario}
-    return render(request,'Usuario.html',data)
+    query = request.GET.get('search')
+    if query:
+        usuario = Usuarios.objects.filter(USULOGIN__icontains=query)
+    else:
+        usuario = Usuarios.objects.all()
+    data = {'usuario': usuario}
+    return render(request, 'Usuario.html', data)
+
 
 
 def View_Usuario(request,id):
@@ -187,11 +205,16 @@ def Update_Usuario(request,id):
     return render(request,'update-usuario.html',data)
 
 #sucursales
+
 def SucursalIndex(request):
-    sucursal=Sucursales.objects.all()
-    data={'sucursal':sucursal}
-    return render(request,
-                  'sucursales.html',data)
+    query = request.GET.get('search')
+    if query:
+        sucursal = Sucursales.objects.filter(SUCNOMBRE__icontains=query)
+    else:
+        sucursal = Sucursales.objects.all()
+    data = {'sucursal': sucursal}
+    return render(request, 'sucursales.html', data)
+
 def sucursalCreate(request):
     sucursal=Sucursales()
     if request.method=='POST':
@@ -322,9 +345,6 @@ def matriculaUpdate(request, id):
         }
         return render(request, 'create-matricula.html', data)
     
-
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Matriculas
 
 def matriculaDelete(request, id):
     matricula = get_object_or_404(Matriculas, id=id)

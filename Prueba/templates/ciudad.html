@@ -1,44 +1,46 @@
-{%include 'header.html'%}
-    <div class="container mt-5">
-        <div class="alert alert-success display-1">CIUDADES</div>
-        {%if ciudad%}
-         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id de ciudad</th>
-                    <th>codigo de ciudad</th>
-                    <th>nombre de ciudad</th>
-                    <th colspan="3">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {%for ciu in ciudad%}
-                <tr>
-                    <td>{{ciu.id}}</td>
-                    <td>{{ciu.CIUCODIGO}}</td>
-                    <td>{{ciu.CIUNOMBRE}}</td>
-                    <td>
-                        <a href="../view-ciudades/{{ciu.id}}"
-                          class='btn btn-success'><i class="bi bi-eye"></i>
-                       </a>
-                    </td>
-                    <td>
-                        <a href="../actualizar-ciudad/{{ciu.id}}"
-                          class='btn btn-warning'><i class="bi bi-pencil"></i>
-                       </a>
-                    </td>
-                    <td>
-                        <a href="../delete-ciudad/{{ciu.id}}"
-                          class='btn btn-danger'><i class="bi bi-trash"></i>
-                       </a>
-                    </td>
-                </tr>
-                {%endfor%}
-            </tbody>
-         </table>
-        {%else%}
-            <div class="alert alert-info">No Hay Ciudades!!!!</div>
-        {%endif%}
-        <a href="../ingresar-ciudades/" class="btn btn-success">Agregar</a>
-        </div>    
-{%include 'footer.html'%}
+{% include 'header.html' %}
+<div class="container mt-5">
+    <div class="alert alert-success display-1">CIUDADES</div>
+    
+    <form method="GET" action="">
+        <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control" placeholder="Buscar ciudad..." aria-label="Buscar ciudad" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+        </div>
+    </form>
+    
+    {% if ciudad %}
+     <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>id de ciudad</th>
+                <th>codigo de ciudad</th>
+                <th>nombre de ciudad</th>
+                <th colspan="3">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ciu in ciudad %}
+            <tr>
+                <td>{{ ciu.id }}</td>
+                <td>{{ ciu.CIUCODIGO }}</td>
+                <td>{{ ciu.CIUNOMBRE }}</td>
+                <td>
+                    <a href="../view-ciudades/{{ ciu.id }}" class='btn btn-success'><i class="bi bi-eye"></i></a>
+                </td>
+                <td>
+                    <a href="../actualizar-ciudad/{{ ciu.id }}" class='btn btn-warning'><i class="bi bi-pencil"></i></a>
+                </td>
+                <td>
+                    <a href="../delete-ciudad/{{ ciu.id }}" class='btn btn-danger'><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+    {% else %}
+        <div class="alert alert-info">No Hay Ciudades!!!!</div>
+    {% endif %}
+    <a href="../ingresar-ciudades/" class="btn btn-success">Agregar</a>
+</div>    
+{% include 'footer.html' %}
