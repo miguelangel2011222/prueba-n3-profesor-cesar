@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales,Matriculas
 from . import forms
-from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm
+from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm, MatriculaFilterForm
 from django.db.models import Q
 # Create your views here.
 
@@ -246,7 +246,7 @@ def sucursalUpdate(request, id):
 
     else:
         ciudades = Ciudades.objects.all()
-        data = {'sucursales':sucursal, 'ciudades': ciudades}
+        data = {'sucursal':sucursal, 'ciudades': ciudades}
         return render(request, 'create-sucursal.html', data)
 
 
@@ -286,6 +286,25 @@ def matriculaIndexFiltro(request):
     }
     return render(request, 'MatriculaFiltro.html', data)
 
+def matriculaValorFecha(request):
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_fin = request.GET.get('fecha_fin')
+    matriculas = Matriculas.objects.all()
+
+    if fecha_inicio:
+        matriculas = matriculas.filter(MATFECHA__gte=fecha_inicio)
+    if fecha_fin:
+        matriculas = matriculas.filter(MATFECHA__lte=fecha_fin)
+
+    total_valor = sum(matricula.TIPCURCODIGO.TIPCURVALOR for matricula in matriculas)
+    data = {
+        'matriculas': matriculas,
+        'total_valor': total_valor,
+        'fecha_inicio': fecha_inicio,
+        'fecha_fin': fecha_fin,
+    }
+    return render(request, 'fecha-filtro-matricula.html', data)
+
 
 
 
@@ -296,8 +315,8 @@ def matriculaCreate(request):
         matricula.MATFECHA = request.POST['xtmatricula1']
         tipcurso = Tipocurso.objects.get(id=request.POST["tipcurso"])
         matricula.TIPCURCODIGO = tipcurso
-        rut = Alumnos.objects.get(id=request.POST["rut"])
-        matricula.ALUMRUT = rut
+        nombres = Alumnos.objects.get(id=request.POST["nombres"])
+        matricula.ALUMRUT = nombres
         sucodigo = Sucursales.objects.get(id=request.POST["sucodigo"])
         matricula.SUCCODIGO = sucodigo
         matricula.save()
@@ -305,11 +324,11 @@ def matriculaCreate(request):
 
     else:
         tipcursos = Tipocurso.objects.all()
-        ruts = Alumnos.objects.all()
+        nombres = Alumnos.objects.all()
         sucodigos = Sucursales.objects.all()
         data = {
             'tipcursos': tipcursos,
-            'ruts': ruts,
+            'nombres': nombres,
             'sucodigos': sucodigos
         }
         return render(request, 'create-matricula.html', data)
@@ -326,8 +345,8 @@ def matriculaUpdate(request, id):
         matricula.MATFECHA = request.POST['xtmatricula1']
         tipcurso = Tipocurso.objects.get(id=request.POST["tipcurso"])
         matricula.TIPCURCODIGO = tipcurso
-        rut = Alumnos.objects.get(id=request.POST["rut"])
-        matricula.ALUMRUT = rut
+        nombres = Alumnos.objects.get(id=request.POST["nombres"])
+        matricula.ALUMRUT = nombres
         sucodigo = Sucursales.objects.get(id=request.POST["sucodigo"])
         matricula.SUCCODIGO = sucodigo
         matricula.save()
@@ -335,12 +354,12 @@ def matriculaUpdate(request, id):
 
     else:
         tipcursos = Tipocurso.objects.all()
-        ruts = Alumnos.objects.all()
+        nombres = Alumnos.objects.all()
         sucodigos = Sucursales.objects.all()
         data = {
             'matricula': matricula,
             'tipcursos': tipcursos,
-            'ruts': ruts,
+            'nombres': nombres,
             'sucodigos': sucodigos
         }
         return render(request, 'create-matricula.html', data)
@@ -352,5 +371,6 @@ def matriculaDelete(request, id):
         matricula.delete()
         return redirect('/matriculas/')
     return render(request, 'delete-matricula.html', {'matricula': matricula})
+
 
 

@@ -15,25 +15,25 @@
                 </div>
                 <div class="mb-3">
                     <select class="form-select" aria-label="Default Select" name="tipcurso">
-                        <option value="-1">Seleccionar tipo curso</option>
+                        <option value="-1">Seleccionar Nombre del Curso</option>
                         {% for tipi in tipcursos %}
-                            <option value="{{ tipi.id }}" {% if matricula and tipi.id == matricula.TIPCURCODIGO.id %}selected{% endif %}>{{ tipi.TIPCURCODIGO }}</option>
+                            <option value="{{ tipi.id }}" {% if matricula and tipi.id == matricula.TIPCURNOMBRE.id %}selected{% endif %}>{{ tipi.TIPCURNOMBRE }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <select class="form-select" aria-label="Default Select" name="rut">
-                        <option value="-1">Seleccionar rut</option>
-                        {% for lu in ruts %}
-                            <option value="{{ lu.id }}" {% if matricula and lu.id == matricula.ALUMRUT.id %}selected{% endif %}>{{ lu.ALUMRUT }}</option>
+                    <select class="form-select" aria-label="Default Select" name="nombres">
+                        <option value="-1">Seleccionar Nombre del estudiante</option>
+                        {% for lu in nombres %}
+                            <option value="{{ lu.id }}" {% if matricula and lu.id == matricula.ALUMNOMBRE.id %}selected{% endif %}>{{ lu.ALUMNOMBRE }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="mb-3">
                     <select class="form-select" aria-label="Default Select" name="sucodigo">
-                        <option value="-1">Seleccionar Código de sucursal</option>
+                        <option value="-1">Seleccionar Nombre de la Sucursal</option>
                         {% for succ in sucodigos %}
-                            <option value="{{ succ.id }}" {% if matricula and succ.id == matricula.SUCCODIGO.id %}selected{% endif %}>{{ succ.SUCCODIGO }}</option>
+                            <option value="{{ succ.id }}" {% if matricula and succ.id == matricula.SUCNOMBRE.id %}selected{% endif %}>{{ succ.SUCNOMBRE }}</option>
                         {% endfor %}
                     </select>
                 </div>

@@ -31,7 +31,7 @@ from Prueba.views import Index_Usuario,View_Usuario,Update_Usuario
 
 from Prueba.views import SucursalIndex,sucursalView,sucursalCreate, sucursalUpdate, sucursalDelete
 
-from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete,matriculaIndexFiltro
+from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete,matriculaIndexFiltro, matriculaValorFecha
 
 urlpatterns = [
     #appbd
@@ -94,4 +94,5 @@ urlpatterns = [
     path('ver-matriculas/<int:id>',matriculaView),
     path('editar-matricula/<int:id>/', matriculaUpdate),
     path('eliminar-matricula/<int:id>/',matriculaDelete),
+    path('filtrar-matriculas/', matriculaValorFecha, name='matriculaValorFecha'),
 ]

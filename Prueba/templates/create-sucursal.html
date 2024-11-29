@@ -1,7 +1,7 @@
 {%include 'header.html'%}
 <div class='container mt-5'>
-    <div class="alert alert-success display-1">{% if sucursales %}Editar{% else %}Crear{% endif %} Sucursales</div>
-    <form method="POST" action="{% if sucursales %}/sucursalUpdate/{{ sucursales.id }}/{% else %}/ingresar-sucursal/{% endif %}">
+    <div class="alert alert-success display-1">{% if sucursal %}Editar{% else %}Crear{% endif %} Sucursales</div>
+    <form method="POST" action="{% if sucursal %}/sucursalUpdate/{{ sucursal.id }}{% else %}/ingresar-sucursal/{% endif %}">
          {% csrf_token %}
          <div class="row">
              <div class="col-md-6">
@@ -19,7 +19,7 @@
                      name="ciudad">
                      <option value="-1">Seleccionar Ciudad</option>
                      {%for ciu in ciudades%}
-                        <option value="{{ciu.id}}">{{ciu.CIUCODIGO}}</option>
+                        <option value="{{ciu.id}}">{{ciu.CIUNOMBRE}}</option>
                     {%endfor%}
                 </select>
                 <input type="submit" class="btn btn-success" value="Guardar">
