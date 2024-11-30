@@ -297,11 +297,13 @@ def matriculaValorFecha(request):
         matriculas = matriculas.filter(MATFECHA__lte=fecha_fin)
 
     total_valor = sum(matricula.TIPCURCODIGO.TIPCURVALOR for matricula in matriculas)
+    total_matriculas_filtradas = Matriculas.objects.filter(MATFECHA__range=(fecha_inicio, fecha_fin)).count()
     data = {
         'matriculas': matriculas,
         'total_valor': total_valor,
         'fecha_inicio': fecha_inicio,
         'fecha_fin': fecha_fin,
+        'total_matricula': total_matriculas_filtradas,
     }
     return render(request, 'fecha-filtro-matricula.html', data)
 
@@ -372,5 +374,6 @@ def matriculaDelete(request, id):
         return redirect('/matriculas/')
     return render(request, 'delete-matricula.html', {'matricula': matricula})
 
-
+def cantidadMatricula(request):
+    pass
 
