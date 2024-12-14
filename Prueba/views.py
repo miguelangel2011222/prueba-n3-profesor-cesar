@@ -1,8 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from Prueba.models import Ciudades,Tipocurso,Alumnos,Usuarios,Sucursales,Matriculas
 from . import forms
+from .serializers import AlumnoSerializer,MatriculaSerializer
 from .forms import CiudadesForm,TipoCursoForm,AlumnosForm,UsuarioForm, MatriculaFilterForm
 from django.db.models import Q
+from rest_framework.response import Response
+from rest_framework import status 
+from rest_framework.views import APIView
+from django.http import Http404
 # Create your views here.
 
 
@@ -276,13 +281,16 @@ def matriculaIndexFiltro(request):
     sucursal_nombre = request.GET.get('sucursal', '')
     if sucursal_nombre:
         matriculas = Matriculas.objects.filter(SUCCODIGO__SUCNOMBRE__icontains=sucursal_nombre)
+        
     else:
         matriculas = Matriculas.objects.all()
     total_valor = sum(matricula.TIPCURCODIGO.TIPCURVALOR for matricula in matriculas)
+    total_matriculas_filtradas = Matriculas.objects.filter(SUCCODIGO__SUCNOMBRE__icontains=sucursal_nombre).count()
     data = {
         'matriculas': matriculas,
         'total_valor': total_valor,
         'sucursal_nombre': sucursal_nombre,
+        'total_matriculas_filtradas':total_matriculas_filtradas
     }
     return render(request, 'MatriculaFiltro.html', data)
 
@@ -377,3 +385,80 @@ def matriculaDelete(request, id):
 def cantidadMatricula(request):
     pass
 
+#cosas de los serializers
+
+class AlumnoList(APIView):
+    def get(self,request):
+        alumno=Alumnos.objects.all()
+        serializer=AlumnoSerializer(alumno,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer=AlumnoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+class MatriculaList(APIView):
+    def get(self,request):
+        matricula=Matriculas.objects.all()
+        serializer=MatriculaSerializer(matricula,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer=MatriculaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+class AlumnoDetail(APIView):
+    def get_object(self,pk):
+        try:
+            return Alumnos.objects.get(pk=pk)
+        except Alumnos.DoesNotExist:
+            return Http404
+    
+    def get(self,request,pk):
+        alumno=self.get_object(pk)
+        serializer=AlumnoSerializer(alumno)
+        return Response(serializer.data)
+    
+    def put(self,request,pk):
+        alumno=self.get_object(pk) 
+        serializer=AlumnoSerializer(alumno,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_CONTENT) 
+    
+    def delete(self,request,pk):
+        alumno=self.get_object(pk)
+        alumno.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 
+    
+class MatriculaDetail(APIView):
+    def get_object(self,pk):
+        try:
+            return Matriculas.objects.get(pk=pk)
+        except Matriculas.DoesNotExist:
+            return Http404
+    
+    def get(self,request,pk):
+        matricula=self.get_object(pk)
+        serializer=MatriculaSerializer(matricula)
+        return Response(serializer.data)
+    
+    def put(self,request,pk):
+        matricula=self.get_object(pk) 
+        serializer=MatriculaSerializer(matricula,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_CONTENT) 
+    
+    def delete(self,request,pk):
+        matricula=self.get_object(pk)
+        matricula.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 

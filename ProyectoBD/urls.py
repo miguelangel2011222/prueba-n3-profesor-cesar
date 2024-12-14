@@ -33,6 +33,11 @@ from Prueba.views import SucursalIndex,sucursalView,sucursalCreate, sucursalUpda
 
 from Prueba.views import matriculaIndex,matriculaCreate,matriculaView,matriculaUpdate,matriculaDelete,matriculaIndexFiltro, matriculaValorFecha
 
+from Prueba.views import AlumnoDetail,AlumnoList,MatriculaList,MatriculaDetail
+
+
+
+
 urlpatterns = [
     #appbd
     path('admin/', admin.site.urls),
@@ -95,4 +100,13 @@ urlpatterns = [
     path('editar-matricula/<int:id>/', matriculaUpdate),
     path('eliminar-matricula/<int:id>/',matriculaDelete),
     path('filtrar-matriculas/', matriculaValorFecha, name='matriculaValorFecha'),
+
+
+
+    #serializer truco 
+
+    path('Alumnos-API-Clases/',AlumnoList.as_view()),
+    path('Alumnos-API-Clases/<int:pk>',AlumnoDetail.as_view()),
+    path('Matricula-API-Clases/',MatriculaList.as_view()),
+    path('Matricula-API-Clases/<int:pk>',MatriculaDetail.as_view()),
 ]

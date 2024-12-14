@@ -21,6 +21,7 @@ class Tipocurso(models.Model):
     TIPCURVALOR=models.IntegerField(max_length=11)
 
 class Alumnos(models.Model):
+    id=models.IntegerField(primary_key=True)
     ALUMRUT=models.CharField(max_length=12)
     ALUMNOMBRE=models.CharField(max_length=15)
     ALUMAPATERNO=models.CharField(max_length=15)
@@ -30,6 +31,7 @@ class Alumnos(models.Model):
     ALUMFONO=models.CharField(max_length=16)
 
 class Matriculas(models.Model):
+    id=models.IntegerField(primary_key=True)
     MATNUMERO=models.IntegerField(max_length=11)
     TIPCURCODIGO=models.ForeignKey(Tipocurso,on_delete=models.CASCADE)
     ALUMRUT=models.ForeignKey(Alumnos,on_delete=models.CASCADE)
