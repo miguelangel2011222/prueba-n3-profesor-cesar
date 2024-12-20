@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from appBD.views import Index_Empleado,Create_Empleado,View_Empleado,Delete_Empleado,ComunaIndex,ComunaCreate,Update_Empleado
-
+from sitio import views
 
 from Prueba.views import Index_Ciudades,Create_Ciudad,View_Ciudad,Delete_Ciudad,Update_Ciudad
 
@@ -109,4 +109,9 @@ urlpatterns = [
     path('Alumnos-API-Clases/<int:pk>',AlumnoDetail.as_view()),
     path('Matricula-API-Clases/',MatriculaList.as_view()),
     path('Matricula-API-Clases/<int:pk>',MatriculaDetail.as_view()),
+
+    #Sitio
+    path('Alumnitos/',views.Index_Alumnito),
+    path('create-alumnito/',views.Create_Alumnito,name='create_employee'),
+    path('alumnoss-view/<int:id>',views.View_Alumnito,name='view_employee'),
 ]

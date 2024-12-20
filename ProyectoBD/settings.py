@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appBD',
     'Prueba',
+    'sitio',
     'rest_framework'
 ]
 

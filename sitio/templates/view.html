@@ -1,0 +1,21 @@
+{%include 'header.html'%}
+    <div class='container'>
+    <h1>Detalles del Alumno</h1>
+    {% if Alumnazo %}
+    <table class="table table-striped">
+        <tr><td>ID</td><td>{{Alumnazo.id}}</td></tr>
+        <tr><td>rut</td><td>{{Alumnazo.ALUMRUT}}</td></tr>
+        <tr><td>Nombre</td><td>{{Alumnazo.ALUMNOMBRE}}</td></tr>
+        <tr><td>Apaterno</td><td>{{Alumnazo.ALUMAPATERNO}}</td></tr>
+        <tr><td>Amaterno</td><td>{{Alumnazo.ALUMAMATERNO}}</td></tr>
+        <tr><td>Direccion</td><td>{{Alumnazo.ALUMDIRECCION}}</td></tr>
+        <tr><td>Email</td><td>{{Alumnazo.ALUMEMAIL}}</td></tr>
+        <tr><td>Fono</td><td>{{Alumnazo.ALUMFONO}}</td></tr>
+      </table>
+       
+    {% else %}
+        <p>Alumno no encontrado.</p>
+    {% endif %}
+    <a href="/Alumnitos/">Volver a la lista</a>
+    </div>
+{%include 'footer.html'%}
